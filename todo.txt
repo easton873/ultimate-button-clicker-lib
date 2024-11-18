@@ -1,0 +1,32 @@
+Eliminate all screen jitter
+    tutorial
+    reset
+
+Get button to shrink to 75% of it's size instead of hardcoded value
+
+You can appear to have enough clicks but actually be short due to rounding...
+
+Bug where if you click the button too fast after locking your phone on the app and then reopening, you lose your clicks from time passing
+
+Tell you what the next milestone for gaining a bonus is
+
+Tutorial should explain that every multiple of x gives you more bonus, not earning
+
+Level Ideas:
+    Play/theatre
+    Movie Production
+    Digging holes
+    Wizard
+    Soccer
+    Unicorns
+
+Upgrades:
+    click power
+    starting clicks
+    more levels at once
+    clickers cheaper
+    clickers increase at slower rate
+    bonus cheaper
+    bonus increase at slower rate
+    overall boost (starting bonus?)
+    

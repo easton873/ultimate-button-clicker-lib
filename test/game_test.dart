@@ -28,10 +28,7 @@ import 'package:flutter_test/flutter_test.dart';
 //         ]
 //     }
 void main() {
-  Upgrades upgrades = Upgrades();
-  Game.upgrades = upgrades;
-  ClickerUpgrade.upgrades = upgrades;
-  test('Basic Game', () {
+    test('Basic Game', () {
     Map json = {
       Clicker.clickerName:"Test",
       Clicker.clickerThing:"Foo",

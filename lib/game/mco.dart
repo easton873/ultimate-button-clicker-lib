@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:button_clicker/game/buying_amount.dart';
-import 'package:button_clicker/game/clicker_upgrade.dart';
 import 'package:button_clicker/game/const.dart';
 import 'package:button_clicker/game/game.dart';
 import 'package:button_clicker/game/game_data.dart';
@@ -28,7 +27,6 @@ class MCO extends ObservableGame {
   // Stack<GameState> currState = Stack();
   BuyingAmountState buyingAmount = OneState();
   Tutorial tutorial = Tutorial();
-  Upgrades upgrades = Upgrades();
 
   void run() {
     Timer.periodic(Duration(milliseconds: Constants.gameRateAsMillisecond), (Timer timer) {
@@ -88,8 +86,6 @@ class MCO extends ObservableGame {
   Future<void> _initialize() async {
     await SaveData().initSharedPreferences();
     _loadUpgrades();
-    Game.upgrades = upgrades;
-    ClickerUpgrade.upgrades = upgrades;
     // load loadouts first
     LoadJson loader = LoadJson(AppWay());
     dynamic json = await loader.readJson('assets/loadouts/loadouts.json');
@@ -110,7 +106,7 @@ class MCO extends ObservableGame {
   }
 
   bool canUnlockLevel() {
-    return upgrades.numLevels.getTotalLevelsUnlocked() - settings.diffUnlockedLevelsAndCompletedLevels() > 0;
+    return Upgrades().numLevels.getTotalLevelsUnlocked() - settings.diffUnlockedLevelsAndCompletedLevels() > 0;
   }
 
   void attemptUnlock(String key) {
@@ -125,7 +121,7 @@ class MCO extends ObservableGame {
   }
 
   void _loadUpgrades() {
-    upgrades = SaveData().loadData(upgrades, Upgrades.saveKey);
+    Upgrades().setUpgrades(SaveData().loadData(Upgrades(), Upgrades.saveKey));
   }
 
   void _checkTutorialData() {
@@ -140,7 +136,7 @@ class MCO extends ObservableGame {
   }
 
   void _saveUpgrades() {
-    SaveData().saveData(upgrades, Upgrades.saveKey);
+    SaveData().saveData(Upgrades(), Upgrades.saveKey);
   }
 
   void doTutorial() {

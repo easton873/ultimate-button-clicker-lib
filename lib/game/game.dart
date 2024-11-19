@@ -9,7 +9,6 @@ import 'package:button_clicker/save/save_data.dart';
 import 'package:button_clicker/save/to_json.dart';
 
 class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
-  static late Upgrades upgrades;
   double _totalClicks;
   int _bonus;
   int _newBonus = 0;
@@ -41,7 +40,7 @@ class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
   }
 
   Game.fromGameData(this.data) :
-    _totalClicks = upgrades.startingClick.getStartingClicks(),
+    _totalClicks = Upgrades().startingClick.getStartingClicks(),
     _bonus = 0,
     _newBonus = 0,
     clickers = data.clickers,
@@ -125,7 +124,7 @@ class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
   }
 
   void click() {
-    addClicks(upgrades.power.getClickPower() * getBonus().toDouble());
+    addClicks(Upgrades().power.getClickPower() * getBonus().toDouble());
     if (_getTotalClicksPerSecond() < (100 * getBonus())) {
       save();
     }
@@ -170,7 +169,7 @@ class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
       _bonus += _newBonus;
     }
     _newBonus = 0;
-    _totalClicks = upgrades.startingClick.getStartingClicks();
+    _totalClicks = Upgrades().startingClick.getStartingClicks();
     resetClickers();
   }
 

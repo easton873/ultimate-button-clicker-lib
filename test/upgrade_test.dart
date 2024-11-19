@@ -2,6 +2,7 @@ import 'package:button_clicker/game/clicker.dart';
 import 'package:button_clicker/game/clicker_presenter.dart';
 import 'package:button_clicker/game/clicker_upgrade.dart';
 import 'package:button_clicker/game/const.dart';
+import 'package:button_clicker/game/game_data.dart';
 import 'package:button_clicker/game/upgrades/slow_cost_upgrade.dart';
 import 'package:button_clicker/game/upgrades/upgrades.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,7 +18,6 @@ void main() {
     upgrade.buy(100);
     expect(upgrade.getCostIncreaseRate(1.1), 1.094176453358425);
 
-    ClickerUpgrade.upgrades = upgrades;
     Clicker clicker = ClickerPresenter("name", 0, 1, 1, 1.1);
     expect(clicker.getCost(1), 1.0);
     expect(clicker.getCost(2), 2.09);
@@ -25,7 +25,6 @@ void main() {
 
   test('slow cost upgrade 2', () async {
     Upgrades upgrades = Upgrades();
-    ClickerUpgrade.upgrades = upgrades;
     SlowCostUpgrade upgrade = upgrades.slowCost;
     expect(upgrade.getCostIncreaseRate(1.1), 1.1);
     Clicker clicker = ClickerPresenter("name", 0, 1.0, 1, 1.1);
@@ -39,17 +38,17 @@ void main() {
   });
 
   test('cost discount upgrade', () async {
-    Upgrades noUpgrades = Upgrades();
-    Upgrades upgrades = Upgrades();
+    Upgrades noUpgrades = Upgrades.fromNothing();
+    Upgrades upgrades = Upgrades.fromNothing();
 
-    ClickerUpgrade.upgrades = upgrades;
+    Upgrades().setUpgrades(upgrades);
     Clicker clicker = ClickerPresenter("name", 0, 1.0, 1, 1.1);
     
     upgrades.clickerDiscount.buy(100);
 
     double upgradeCost = clicker.getCost(1);
 
-    ClickerUpgrade.upgrades = noUpgrades;
+    Upgrades().setUpgrades(noUpgrades);
 
     double noUpgradeCost = Constants.presenterRoundToDecimal(clicker.getCost(1) * upgrades.clickerDiscount.getDiscount(), 2);
 
@@ -57,7 +56,7 @@ void main() {
 
     noUpgradeCost = Constants.presenterRoundToDecimal(clicker.getCost(100) * upgrades.clickerDiscount.getDiscount(), 2);
 
-    ClickerUpgrade.upgrades = upgrades;
+    Upgrades().setUpgrades(upgrades);
 
     upgradeCost = clicker.getCost(100);
 

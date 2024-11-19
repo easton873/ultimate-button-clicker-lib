@@ -6,15 +6,13 @@ class ClickerUpgrade extends ClickerFoodBonus {
 
   ClickerUpgrade.fromJson(super.json) : super.fromJson();
 
-  static late Upgrades upgrades;
-
   @override
   double getCostIncreaseRate() {
-    return upgrades.slowCost.getCostIncreaseRate(super.getCostIncreaseRate());
+    return Upgrades().slowCost.getCostIncreaseRate(super.getCostIncreaseRate());
   }
 
   @override
   double getOriginalCost() {
-    return super.getOriginalCost() * upgrades.clickerDiscount.getDiscount();
+    return super.getOriginalCost() * Upgrades().clickerDiscount.getDiscount();
   }
 }

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:button_clicker/game/clicker.dart';
 import 'package:button_clicker/game/clicker_presenter.dart';
 import 'package:button_clicker/game/const.dart';
+import 'package:button_clicker/game/upgrades/upgrades.dart';
 import 'package:button_clicker/ui/color.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class GameData {
   double bonusRate;
   int bonusCost;
   int winningPoint;
-  int reward;
+  int _reward;
   List<Clicker> clickers = [];
 
   static late GameData defaultData;
@@ -36,7 +37,7 @@ class GameData {
   bonusRate = json[Constants.gameDataBonusRate],
   bonusCost = json[Constants.gameDataBonusCost],
   winningPoint = json[Constants.gameDataWinningPoint],
-  reward = json[Constants.gameDataReward],
+  _reward = json[Constants.gameDataReward],
   saveKey = json[Constants.gameDataName],
   backgroundImagePath = json[Constants.gameDataName] + Constants.backgroundImageSuffix, 
   buttonImagePath = json[Constants.gameDataName] + Constants.buttonImageSuffix {
@@ -53,7 +54,7 @@ class GameData {
   secondaryColor = Colors.black,
   backgroundImagePath = "custom_bg.png",
   buttonImagePath = "button.png",
-  reward = 0;
+  _reward = 0;
 
   void _initializeSecondaryColor(Map<dynamic, dynamic> json) {
     if (json.containsKey(Constants.gameDataSecondaryColor)) {
@@ -77,5 +78,9 @@ class GameData {
 
   String getPerSecondAbbrev() {
     return "${thingProduced[0].toUpperCase()}PS";
+  }
+
+  int getReward() {
+    return _reward * Upgrades().reward.getMultiplier();
   }
 }

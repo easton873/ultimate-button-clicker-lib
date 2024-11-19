@@ -1,6 +1,7 @@
 import 'package:button_clicker/game/upgrades/click_power_upgrade.dart';
 import 'package:button_clicker/game/upgrades/clicker_discount_upgrade.dart';
 import 'package:button_clicker/game/upgrades/num_levels_upgrade.dart';
+import 'package:button_clicker/game/upgrades/reward_upgrade.dart';
 import 'package:button_clicker/game/upgrades/slow_cost_upgrade.dart';
 import 'package:button_clicker/game/upgrades/starting_click_upgrade.dart';
 import 'package:button_clicker/save/from_json.dart';
@@ -42,6 +43,11 @@ abstract class Upgrade implements JsonMarshaller, JsonUnmarshaller {
 
   Upgrade(this._base);
 
+  @override
+  Map encodeJson() {
+    return getBase().encodeJson();
+  }
+
   // buy() returns the number of points spent
   int buy(int points) {
     if (points >= _base.cost) {
@@ -77,18 +83,30 @@ abstract class Upgrade implements JsonMarshaller, JsonUnmarshaller {
 }
 
 class Upgrades implements JsonMarshaller, JsonUnmarshaller {
+  static Upgrades _singleton = Upgrades.fromNothing();
+
+  factory Upgrades() {
+    return _singleton;
+  }
+
+  setUpgrades(Upgrades upgrades) {
+    _singleton = upgrades;
+  }
+
   ClickPower power;
   StartingClickUpgrade startingClick;
   NumLevelsUpgrade numLevels;
   SlowCostUpgrade slowCost;
   ClickerDiscountUpgrade clickerDiscount;
+  RewardUpgrade reward;
 
-  Upgrades() : 
+  Upgrades.fromNothing() : 
     power = ClickPower(),
     startingClick = StartingClickUpgrade(),
     numLevels = NumLevelsUpgrade(),
     slowCost = SlowCostUpgrade(),
-    clickerDiscount = ClickerDiscountUpgrade();
+    clickerDiscount = ClickerDiscountUpgrade(),
+    reward = RewardUpgrade();
 
   static const String saveKey = "upgrades";
   static const String jsonPower = "power";
@@ -96,6 +114,7 @@ class Upgrades implements JsonMarshaller, JsonUnmarshaller {
   static const String jsonNumLevels = "numLevels";
   static const String jsonSlowCost = "slowCost";
   static const String jsonClickerDiscount = "clickerDiscount";
+  static const String jsonReward = "reward";
 
   List<Upgrade> getUpgrades() {
     return [
@@ -104,6 +123,7 @@ class Upgrades implements JsonMarshaller, JsonUnmarshaller {
       numLevels,
       slowCost,
       clickerDiscount,
+      reward,
     ];
   }
 
@@ -112,7 +132,8 @@ class Upgrades implements JsonMarshaller, JsonUnmarshaller {
     startingClick = json[jsonStartingClicks] != null ? StartingClickUpgrade.fromJson(json[jsonStartingClicks]) : StartingClickUpgrade(),
     numLevels = json[jsonNumLevels] != null ? NumLevelsUpgrade.fromJson(json[jsonNumLevels]) : NumLevelsUpgrade(),
     slowCost = json[jsonSlowCost] != null ? SlowCostUpgrade.fromJson(json[jsonSlowCost]) : SlowCostUpgrade(),
-    clickerDiscount = json[jsonClickerDiscount] != null ? ClickerDiscountUpgrade.fromJson(json[jsonClickerDiscount]) : ClickerDiscountUpgrade();
+    clickerDiscount = json[jsonClickerDiscount] != null ? ClickerDiscountUpgrade.fromJson(json[jsonClickerDiscount]) : ClickerDiscountUpgrade(),
+    reward = json[jsonReward] != null ? RewardUpgrade.fromJson(json[jsonReward]) : RewardUpgrade();
   
   @override
   decodeJson(Map<String, dynamic> json) {
@@ -126,6 +147,7 @@ class Upgrades implements JsonMarshaller, JsonUnmarshaller {
       jsonStartingClicks: startingClick.encodeJson(),
       jsonNumLevels: numLevels.encodeJson(),
       jsonClickerDiscount: clickerDiscount.encodeJson(),
+      jsonReward : reward.encodeJson(),
     };
   }
 }

@@ -13,7 +13,6 @@ class Clicker {
 
   static const String clickerName = "name";
   static const String clickerQuantity = "quantity";
-  static const String clickerOriginalCost = "originalCost";
   static const String clickerCost = "cost";
   static const String clickerClicksPerSecond = "clicksPerSecond";
   static const String clickerCostIncreaseRate = "costIncreaseRate";
@@ -30,16 +29,13 @@ class Clicker {
     if (json.containsKey(clickerQuantity)) {
       quantity = json[clickerQuantity];
     }
-    if (json.containsKey(clickerOriginalCost)) {
-      originalCost = json[clickerOriginalCost];
-    }
   }
 
   Map toJson() => {
     clickerName: name,
     clickerQuantity: quantity,
     clickerClicksPerSecond: clicksPerSecond,
-    clickerOriginalCost: originalCost,
+    clickerCost: originalCost,
     clickerCostIncreaseRate: costIncreaseRate,
   };
 

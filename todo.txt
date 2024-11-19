@@ -29,4 +29,7 @@ Upgrades:
     bonus cheaper
     bonus increase at slower rate
     overall boost (starting bonus?)
+    reward multiplier
+
+Reward can be won multiple times if you change levels or restart the game, mark it as done after beating it
     

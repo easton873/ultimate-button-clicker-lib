@@ -85,7 +85,7 @@ class _LevelsPageState extends GameSidePageState<LevelsPage> {
                               : 
                                 Row(children: 
                                   [
-                                    GameText("Reward: ${currGameData.reward}", fontSize: subFontSize,),
+                                    GameText("Reward: ${currGameData.getReward()}", fontSize: subFontSize,),
                                     // ...[for (int i = 0; i < currGameData.reward; i++) UnlockPoint.getImageWithBackground(fontSize)]
                                   ] 
                                 ),

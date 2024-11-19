@@ -20,7 +20,7 @@ class _UpgradesPageState extends GameSidePageState<UpgradesPage> {
     color: Colors.black,
     fontWeight: FontWeight.bold,
   );
-  final List<Upgrade> upgrades = MCO().upgrades.getUpgrades();
+  final List<Upgrade> upgrades = Upgrades().getUpgrades();
   @override
   Widget buildWidget(BuildContext context) {
     return Column(

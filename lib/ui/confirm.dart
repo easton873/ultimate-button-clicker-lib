@@ -90,7 +90,7 @@ showWonConfirmation(BuildContext context) {
   String bonusText = getBonusPluralOrNot(MCO().currGame.data.winningPoint);
   String goalStr = Constants.displayInt(MCO().currGame.data.winningPoint);
   StringBuffer wonText = StringBuffer("You reached the goal of $goalStr $bonusText");
-  wonText.write(", and have gained ${MCO().currGame.data.reward} ${ImageText.image}");
+  wonText.write(", and have gained ${MCO().currGame.data.getReward()} ${ImageText.image}");
   wonText.write(". Would you like to clear ALL of your progress and start again with 0 $bonusText?");
 
   showDialog(

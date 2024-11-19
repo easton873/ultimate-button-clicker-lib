@@ -63,7 +63,7 @@ class GeneralData implements JsonUnmarshaller<GeneralData>, JsonMarshaller{
   }
 
   void completeLevel(GameData data) {
-    addXP(data.reward);
+    addXP(data.getReward());
     if (_completedLevels.contains(data.saveKey)) {
       return;
     }

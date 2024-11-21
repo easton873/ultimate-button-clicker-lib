@@ -1,7 +1,7 @@
 import 'package:button_clicker/game/upgrades/upgrades.dart';
 
 class NumLevelsUpgrade extends Upgrade {
-  NumLevelsUpgrade() : super(BaseUpgrade("Number of Unlocked Levels", 2));
+  NumLevelsUpgrade() : super(BaseUpgrade(name: "Number of Unlocked Levels"));
 
   NumLevelsUpgrade.fromJson(Map json) : super(BaseUpgrade.fromJson(json));
 
@@ -16,7 +16,7 @@ class NumLevelsUpgrade extends Upgrade {
   }
 
   @override
-  int increaseCost() {
+  int getCost() {
     return super.getLevel() * 2;
   }
 

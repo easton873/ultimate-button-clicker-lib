@@ -18,10 +18,10 @@ class GameData {
   String thingProducedPlural;
   String bonusName;
   String bonusPlural;
-  double bonusRate;
-  int bonusCost;
+  double _bonusRate;
+  int _bonusCost;
   int winningPoint;
-  int _reward;
+  final int _reward;
   List<Clicker> clickers = [];
 
   static late GameData defaultData;
@@ -34,8 +34,8 @@ class GameData {
   secondaryColor = Colors.black,
   bonusName = json[Constants.gameDataBonus],
   bonusPlural = json[Clicker.clickerBonusPlural],
-  bonusRate = json[Constants.gameDataBonusRate],
-  bonusCost = json[Constants.gameDataBonusCost],
+  _bonusRate = json[Constants.gameDataBonusRate],
+  _bonusCost = json[Constants.gameDataBonusCost],
   winningPoint = json[Constants.gameDataWinningPoint],
   _reward = json[Constants.gameDataReward],
   saveKey = json[Constants.gameDataName],
@@ -49,7 +49,7 @@ class GameData {
     _initializeSecondaryColor(json);
   }
 
-  GameData.fromUserInput(this.saveKey, this.summaryText, this.thingProduced, this.thingProducedPlural, this.bonusName, this.bonusPlural, this.bonusRate, this.bonusCost, this.winningPoint, this.clickers) : 
+  GameData.fromUserInput(this.saveKey, this.summaryText, this.thingProduced, this.thingProducedPlural, this.bonusName, this.bonusPlural, this._bonusRate, this._bonusCost, this.winningPoint, this.clickers) : 
   color = Colors.white,
   secondaryColor = Colors.black,
   backgroundImagePath = "custom_bg.png",
@@ -68,8 +68,16 @@ class GameData {
     return path.replaceAll(" ", "_").toLowerCase();
   }
 
+  double getBonusRate() {
+    return _bonusRate + Upgrades().bonusBoost.getBoost();
+  }
+
+  set bonusRate(double bonusRate) {
+    _bonusRate = bonusRate;
+  }
+
   num bonusRateForPercentage() {
-    return bonusRate * 100;
+    return getBonusRate() * 100;
   }
 
   String getBgImagePath() {
@@ -82,5 +90,9 @@ class GameData {
 
   int getReward() {
     return _reward * Upgrades().reward.getMultiplier();
+  }
+
+  int getBonusCost() {
+    return (_bonusCost.toDouble() * Upgrades().bonusDiscount.getDiscount()).toInt();
   }
 }

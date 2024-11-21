@@ -5,18 +5,22 @@ import 'package:button_clicker/save/from_json.dart';
 import 'package:button_clicker/save/to_json.dart';
 
 class GeneralData implements JsonUnmarshaller<GeneralData>, JsonMarshaller{
-  bool purchased = false;
-  Set<String> unlockedThings = <String>{Constants.defaultGameDataKey};
-  final Set<String> _completedLevels = {};
-  bool tutorialCompleted = false;
-  int _xp = 1;
-
   static const String generalDataPurchased = "purchased";
   static const String generalDataUnlocked = "unlocked";
   static const String generalDataUnlockPoints = "points";
   static const String generalDataTutorialCompleted = "tutorialCompleted";
   static const String generalDataCompletedLevels = "completedLevels";
   static const String jsonXP = "xp";
+  static const String jsonTotalXP = "totalXP";
+
+  static const int startingXP = 1;
+
+  bool purchased = false;
+  Set<String> unlockedThings = <String>{Constants.defaultGameDataKey};
+  final Set<String> _completedLevels = {};
+  bool tutorialCompleted = false;
+  int _xp = startingXP;
+  int _totalSpentXP = startingXP;
 
   GeneralData();
   
@@ -35,13 +39,15 @@ class GeneralData implements JsonUnmarshaller<GeneralData>, JsonMarshaller{
     generalDataUnlocked: unlockedThings.toList(),
     generalDataTutorialCompleted: tutorialCompleted,
     generalDataCompletedLevels: _completedLevels.toList(),
-    jsonXP: _xp
+    jsonXP: _xp,
+    jsonTotalXP: _totalSpentXP,
   };
 
   GeneralData.fromJson(Map<String, dynamic> json) : 
   purchased = json[generalDataPurchased],
   tutorialCompleted = json[generalDataTutorialCompleted],
-  _xp = json[jsonXP] ?? 0 {
+  _xp = json[jsonXP] ?? startingXP,
+  _totalSpentXP = json[jsonTotalXP] ?? startingXP {
     for (dynamic d in json[generalDataUnlocked]) {
       unlockedThings.add(d as String);
     }
@@ -74,12 +80,16 @@ class GeneralData implements JsonUnmarshaller<GeneralData>, JsonMarshaller{
     return _completedLevels.contains(level);
   }
 
-  void refund(String key) {
+  void refundLevel(String key) {
     unlockedThings.remove(key);
   }
 
   int getXP() {
     return _xp;
+  }
+
+  int get totalSpentXP {
+    return _totalSpentXP;
   }
 
   spendXP(int amount) {
@@ -88,6 +98,11 @@ class GeneralData implements JsonUnmarshaller<GeneralData>, JsonMarshaller{
 
   addXP(int amount) {
     _xp += amount;
+    _totalSpentXP += amount;
+  }
+
+  void refundXP() {
+    _xp = _totalSpentXP;
   }
 
   int diffUnlockedLevelsAndCompletedLevels() {

@@ -9,8 +9,8 @@ class HowMuchIstABonusDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String cost = Constants.displayInt(MCO().currGame.data.bonusCost);
-    String thingProducedStr = getThingProducedPluralOrNot(MCO().currGame.data.bonusCost);
+    String cost = Constants.displayInt(MCO().currGame.data.getBonusCost());
+    String thingProducedStr = getThingProducedPluralOrNot(MCO().currGame.data.getBonusCost());
     return GameTextWithPadding(
       'You earn 1 ${MCO().currGame.data.bonusName}\nfor every\n$cost $thingProducedStr\nyou earn'
     );

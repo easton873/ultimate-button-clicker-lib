@@ -11,7 +11,7 @@ void main() {
 
   test('slow cost upgrade', () async {
     Upgrades upgrades = Upgrades();
-    SlowCostUpgrade upgrade = upgrades.slowCost;
+    SlowClickerCostUpgrade upgrade = upgrades.slowCost;
     expect(upgrade.getCostIncreaseRate(1.1), 1.1);
     upgrade.buy(100);
     expect(upgrade.getCostIncreaseRate(1.1), 1.097044553354851);
@@ -25,7 +25,7 @@ void main() {
 
   test('slow cost upgrade 2', () async {
     Upgrades upgrades = Upgrades();
-    SlowCostUpgrade upgrade = upgrades.slowCost;
+    SlowClickerCostUpgrade upgrade = upgrades.slowCost;
     expect(upgrade.getCostIncreaseRate(1.1), 1.1);
     Clicker clicker = ClickerPresenter("name", 0, 1.0, 1, 1.1);
     expect(clicker.getCost(100), 137796.12);

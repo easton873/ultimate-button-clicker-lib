@@ -1,10 +1,18 @@
 import 'package:button_clicker/game/const.dart';
 import 'package:button_clicker/game/mco.dart';
 import 'package:button_clicker/game/upgrades/upgrades.dart';
+import 'package:button_clicker/ui/app_bar.dart';
+import 'package:button_clicker/ui/confirm.dart';
 import 'package:button_clicker/ui/game_text.dart';
 import 'package:button_clicker/ui/image_text.dart';
 import 'package:button_clicker/ui/pages/game_side_page.dart';
+import 'package:button_clicker/ui/refund_button.dart';
 import 'package:flutter/material.dart';
+
+ButtonStyle _myButtonStyle = ElevatedButton.styleFrom(
+    backgroundColor: Colors.black,
+    foregroundColor: Colors.white,
+  );
 
 class UpgradesPage extends GameSidePage {
   const UpgradesPage({super.key});
@@ -61,17 +69,7 @@ class _UpgradesPageState extends GameSidePageState<UpgradesPage> {
                               )
                             ],
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              foregroundColor: Colors.white
-                            ),
-                            onPressed: () {
-                              MCO().tryBuyUpgrade(upgrades[i]);
-                              setState(() {
-                                
-                              });
-                          }, child: const Text('Upgrade'))
+                          getBuyButton(upgrades[i]),
                         ]
                       ),
                     ),
@@ -83,9 +81,92 @@ class _UpgradesPageState extends GameSidePageState<UpgradesPage> {
       ],
     );
   }
+
+  Widget getBuyButton(Upgrade upgrade) {
+    return ElevatedButton(
+      style: _myButtonStyle,
+      onPressed: upgrade.isMax() ? null : () {
+        MCO().tryBuyUpgrade(upgrade);
+        setState(() {});
+    }, child: upgrade.isMax() ? const Text('Max') : const Text('Upgrade'));
+  }
   
   @override
   String getBackgroundImageName() {
     return "${Constants.imagesPath}/upgrades.jpeg";
   }
+
+  @override
+  CustomAppBar getAppBar() {
+    return UpgradesAppBar(context);
+  }
 }
+
+class UpgradesAppBar extends CustomAppBar {
+  final BuildContext context;
+  const UpgradesAppBar(this.context, {super.key});
+
+  @override
+  Widget getTopRightButton() {
+    return Row(
+      children: [
+        RefundButton(buttonFn: () {
+          showUpgradeRefundConfirmation(context);
+        }),
+        ElevatedButton(
+          style: _myButtonStyle,
+          onPressed: () {
+            _showPurchasePopup(context);
+          },
+          child: const Text("Buy"),
+        ),
+      ],
+    );
+  }
+}
+
+void _showPurchasePopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Buy Coins'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buyXP(context, '\$0.99', 10),
+              _buyXP(context, '\$4.99', 100),
+              _buyXP(context, '\$19.99', 1000),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buyXP(BuildContext context, String price, int amount) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ImageText.gameTextWithImageDefault("${ImageText.image} $amount"),
+          ElevatedButton(
+            style: _myButtonStyle,
+            onPressed: () {
+              MCO().addXP(amount);
+              MCO().forceUpdate();
+              Navigator.of(context).pop();
+            },
+            child: Text(price),
+          ),
+        ],
+      ),
+    );
+  }

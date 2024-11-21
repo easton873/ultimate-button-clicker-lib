@@ -153,15 +153,25 @@ class MCO extends ObservableGame {
 
   void refundLevel(String key) {
     if (!settings.isLevelCompleted(key) && settings.isUnlocked(key) && !currGame.isCurrGame(key)) {
-      settings.refund(key);
+      settings.refundLevel(key);
       SaveData().wipeKey(key);
       _saveSettings();
     }
+  }
+
+  void refundUpgrades() {
+    settings.refundXP();
+    Upgrades().reset();
   }
 
   void tryBuyUpgrade(Upgrade upgrade) {
     settings.spendXP(upgrade.buy(settings.getXP()));
     _saveSettings();
     _saveUpgrades();
+  }
+
+  void addXP(int amount) {
+    settings.addXP(amount);
+    _saveSettings();
   }
 }

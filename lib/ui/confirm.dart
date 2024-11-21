@@ -16,13 +16,13 @@ showResetConfirmation(BuildContext context) {
   );
 }
 
-showRefunConfirmation(BuildContext context, String key) {
+showLevelRefunConfirmation(BuildContext context, String key) {
   showDialog(
     context: context, 
     builder: (BuildContext context) {
       return ConfirmationPopup(
         title: "Refund?", 
-        content: "Refunding this level will give you back 1 ${ImageText.image} but it will wipe your progress on this level.",
+        content: "Refunding this level will allow you to play a different level, but it will wipe your current progress on this level.",
          actions: [
           ButtonInfo("Cancel", (){ Navigator.of(context).pop(); }),
           ButtonInfo("Clear & Gain ${ImageText.image}", () { 
@@ -34,6 +34,25 @@ showRefunConfirmation(BuildContext context, String key) {
       );
     }
   );
+}
+
+showUpgradeRefundConfirmation(BuildContext context) {
+  showDialog(
+    context: context, 
+    builder: (BuildContext context) {
+      return ConfirmationPopup(
+        title: "Undo Upgrades?", 
+        content: "This will reset all your upgrades back to Level 1, but you will regain all your ${ImageText.image}", 
+        actions: [
+          ButtonInfo("Cancel", (){ Navigator.of(context).pop(); }),
+          ButtonInfo("Reset Upgrades", () { 
+            MCO().refundUpgrades();
+            MCO().forceUpdate();
+            Navigator.of(context).pop(); 
+          })
+        ]
+      );
+    });
 }
 
 class ConfirmReset extends GameUpdateWidget {
@@ -178,7 +197,7 @@ Widget makeButton(String text, VoidCallback? onPressed) {
   return ElevatedButton(
     onPressed: onPressed, 
     style: GameColor.getCurrGameElevatedButtonStyle(),
-    child: ImageText.gameTextWithImage(text, ImageText.defaultFontSize, ImageText.defaultStyle)
+    child: ImageText.gameTextWithImageCurrStyle(text)
   );
 }
 

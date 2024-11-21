@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:button_clicker/game/upgrades/upgrades.dart';
 
 class StartingClickUpgrade extends Upgrade {
-  StartingClickUpgrade() : super(BaseUpgrade("Starting Clicks", 2));
+  StartingClickUpgrade() : super(BaseUpgrade(name: "Starting Clicks"));
 
   StartingClickUpgrade.fromJson(Map json) : super(BaseUpgrade.fromJson(json));
 
@@ -18,7 +18,10 @@ class StartingClickUpgrade extends Upgrade {
   }
 
   @override
-  int increaseCost() {
+  int getCost() {
+    if (super.getLevel() == 1) {
+      return 2;
+    }
     return pow(4, super.getLevel()).toInt();
   }
 

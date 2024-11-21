@@ -31,5 +31,5 @@ Upgrades:
     overall boost (starting bonus?)
     reward multiplier
 
-Reward can be won multiple times if you change levels or restart the game, mark it as done after beating it
+Is clicker gonna be backwards compatabile with original clicker?
     

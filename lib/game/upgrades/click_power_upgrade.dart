@@ -1,15 +1,17 @@
+import 'dart:math';
+
 import 'package:button_clicker/game/upgrades/upgrades.dart';
 
 class ClickPower extends Upgrade {
-  ClickPower() : super(BaseUpgrade("Clicks per click", 1));
+  ClickPower() : super(BaseUpgrade(name: "Clicks per click"));
 
   @override
-  increaseCost() {
-    return super.getLevel();
+  getCost() {
+    return super.getLevel() + (super.getLevel() * pow(1.5, super.getLevel() - 1)).toInt();
   }
 
   int getClickPower() {
-    return super.getLevel();
+    return pow(2, super.getLevel() - 1).toInt();
   }
 
   ClickPower.fromJson(Map json) : super(BaseUpgrade.fromJson(json));

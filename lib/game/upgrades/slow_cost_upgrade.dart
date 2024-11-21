@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:button_clicker/game/upgrades/upgrades.dart';
 
-class SlowCostUpgrade extends Upgrade {
-  SlowCostUpgrade() : super(BaseUpgrade("Slow Clicker Cost Increase", 1));
+class SlowClickerCostUpgrade extends Upgrade {
+  SlowClickerCostUpgrade() : super(BaseUpgrade(name: "Slow Clicker Cost Increase"));
 
-  SlowCostUpgrade.fromJson(Map json) : super(BaseUpgrade.fromJson(json));
+  SlowClickerCostUpgrade.fromJson(Map json) : super(BaseUpgrade.fromJson(json));
 
   @override
   decodeJson(Map<String, dynamic> json) {
-    return SlowCostUpgrade.fromJson(json);
+    return SlowClickerCostUpgrade.fromJson(json);
   }
 
   @override
@@ -18,15 +18,15 @@ class SlowCostUpgrade extends Upgrade {
   }
 
   @override
-  int increaseCost() {
+  int getCost() {
     return super.getLevel() * 3;
   }
 
   double getCostIncreaseRate(double originalRate) {
-    // 1-(1-a)e^-.2x
+    // 1-(1-a)e^-.3x
     // x = level
     // a = originalRate
-    return 1 - (1 - originalRate) * pow(e, -.03*(super.getLevel() - 1));
+    return 1 - (1 - originalRate) * pow(e, -.3*(super.getLevel() - 1));
   }
 
 }

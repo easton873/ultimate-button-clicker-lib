@@ -286,14 +286,14 @@ class BonusNeedsEarningState extends TutorialState {
 
   @override
   String getText(Game game) {
-    int bonusCost = game.data.bonusCost;
+    int bonusCost = game.data.getBonusCost();
     String thingProducedStr = getThingProducedPluralOrNot(bonusCost);
     return "Keep earning until you've\ngot $bonusCost $thingProducedStr\n${writeCounter(game)}";
   }
 
   @override
   String getShopText(Game game) {
-    int bonusCost = game.data.bonusCost;
+    int bonusCost = game.data.getBonusCost();
     String thingProducedStr = getThingProducedPluralOrNot(bonusCost);
     return "Keep earning until you've\ngot $bonusCost $thingProducedStr";
   }
@@ -385,9 +385,9 @@ class FinishGame extends TutorialState {
 
   @override
   String getText(Game game) {
-    String thingPerBonus = getThingProducedPluralOrNot(game.data.bonusCost);
+    String thingPerBonus = getThingProducedPluralOrNot(game.data.getBonusCost());
     String bonusStr = getBonusPluralOrNot(game.data.winningPoint);
-    return "Every ${game.data.bonusCost} $thingPerBonus\nearns you 1 ${game.data.bonusName}\nEarn ${game.data.winningPoint} $bonusStr\nto complete this level\n${writeCounter(game)}";
+    return "Every ${game.data.getBonusCost()} $thingPerBonus\nearns you 1 ${game.data.bonusName}\nEarn ${game.data.winningPoint} $bonusStr\nto complete this level\n${writeCounter(game)}";
   }
 
   @override

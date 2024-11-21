@@ -25,7 +25,7 @@ class _ResetButtonState extends GameUpdateWidgetState<ResetButton> {
       GameText(text)
     ];
     if (MCO().currGame.getNewBonus() == 0) {
-      text = 'Earn ${Constants.displayInt(MCO().currGame.data.bonusCost)}\n${getThingProducedPluralOrNot(MCO().currGame.data.bonusCost)} to reset';
+      text = 'Earn ${Constants.displayInt(MCO().currGame.data.getBonusCost())}\n${getThingProducedPluralOrNot(MCO().currGame.data.getBonusCost())} to reset';
       Widget lock = const Center(
         child: FittedBox(
           fit: BoxFit.scaleDown,

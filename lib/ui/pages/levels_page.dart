@@ -5,6 +5,7 @@ import 'package:button_clicker/game/loadout_manager.dart';
 import 'package:button_clicker/game/mco.dart';
 import 'package:button_clicker/save/save_data.dart';
 import 'package:button_clicker/ui/app_bar.dart';
+import 'package:button_clicker/ui/confirm.dart';
 import 'package:button_clicker/ui/image_text.dart';
 import 'package:button_clicker/ui/pages/game_page.dart';
 import 'package:button_clicker/ui/pages/game_side_page.dart';
@@ -108,7 +109,7 @@ class _LevelsPageState extends GameSidePageState<LevelsPage> {
   Widget getRefundButton(String key) {
     Widget refundButton = const SizedBox.shrink();
     if (isUnlocked(key) && !isCompleted(key)) {
-      refundButton = RefundButton(saveKey: key);
+      refundButton = RefundButton(buttonFn: () => showLevelRefunConfirmation(context, key),);
     }
     return refundButton;
   }

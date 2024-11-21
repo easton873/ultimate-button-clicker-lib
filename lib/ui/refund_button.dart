@@ -2,8 +2,8 @@ import 'package:button_clicker/ui/confirm.dart';
 import 'package:flutter/material.dart';
 
 class RefundButton extends StatelessWidget {
-  const RefundButton({super.key, required this.saveKey});
-  final String saveKey;
+  const RefundButton({super.key, required this.buttonFn});
+  final VoidCallback? buttonFn;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,7 @@ class RefundButton extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: IconButton(
-        onPressed: (){
-          showRefunConfirmation(context, saveKey);
-        }, 
+        onPressed: buttonFn, 
         icon: const Icon(
           Icons.recycling,
           color: Colors.green

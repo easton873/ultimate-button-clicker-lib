@@ -25,7 +25,7 @@ showLevelRefunConfirmation(BuildContext context, String key) {
         content: "Refunding this level will allow you to play a different level, but it will wipe your current progress on this level.",
          actions: [
           ButtonInfo("Cancel", (){ Navigator.of(context).pop(); }),
-          ButtonInfo("Clear & Gain ${ImageText.image}", () { 
+          ButtonInfo("Reset & Refund", () { 
             MCO().refundLevel(key);
             MCO().forceUpdate();
             Navigator.of(context).pop(); 

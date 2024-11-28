@@ -91,7 +91,7 @@ class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
       total += clicker.addClicks(getBonus().toInt());
     }
     addClicks(total);
-    calcNewFood();
+    calcNewBonus();
   }
 
   bool get gameIsWon {
@@ -128,10 +128,6 @@ class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
     return Constants.displayInt(_newBonus);
   }
 
-  void debugAddbonus() {
-    _bonus += 10000000;
-  }
-
   void spendClicks(double clicks) {
     _totalClicks -= clicks;
   }
@@ -144,11 +140,11 @@ class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
   }
 
   num _totalBonusRate() {
-    return data.getBonusRate() * _bonus;
+    return data.getBonusRate() * _bonus + Upgrades().overall.getBoost();
   }
 
   num getBonus() {
-    return (1 + _totalBonusRate() + Upgrades().overall.getBoost());
+    return (1 + _totalBonusRate());
   }
 
   void setBonusTestONLY(int bonus){
@@ -198,16 +194,16 @@ class Game implements JsonUnmarshaller<Game>, JsonMarshaller {
     _gameIsWon = false;
   }
 
-  void calcNewFood() {
+  void calcNewBonus() {
     int currNewFood = _newBonus;
-    int potentialNewFood = foodOnReset();
-    if (currNewFood < potentialNewFood) {
-      _newBonus = potentialNewFood;
+    int potentialNewBonus = bonusOnReset();
+    if (currNewFood < potentialNewBonus) {
+      _newBonus = potentialNewBonus;
     }
   }
 
-  int foodOnReset() {
-    return (_totalClicks / data.getBonusCost()).floor();
+  int bonusOnReset() {
+    return data.getBonus(_totalClicks).toInt();
   }
 
   String displayTotalClicks() {

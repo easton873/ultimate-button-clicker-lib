@@ -1,6 +1,6 @@
 import 'package:button_clicker/game/game_observer.dart';
 import 'package:button_clicker/game/mco.dart';
-import 'package:button_clicker/ui/confirm.dart';
+import 'package:button_clicker/ui/elements/confirm.dart';
 import 'package:button_clicker/ui/pages/game_page.dart';
 import 'package:button_clicker/ui/game_text.dart';
 import 'package:button_clicker/ui/pages/main_page.dart';

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:button_clicker/game/upgrades/upgrades.dart';
 
 class RewardUpgrade extends Upgrade {
-  RewardUpgrade() : super(BaseUpgrade(name: "Reward Multiplier"));
+  RewardUpgrade() : super(BaseUpgrade(name: "Reward Multiplier", maxLevel: 10));
 
   RewardUpgrade.fromJson(Map json) : super(BaseUpgrade.fromJson(json));
 
@@ -13,11 +13,25 @@ class RewardUpgrade extends Upgrade {
   }
 
   @override
-  int getCost() {
-    return pow(10, super.getLevel()).toInt();
+  int getCost(int level) {
+    return 10 * pow(2, level).toInt();
   }
 
   int getMultiplier() {
-    return pow(2, super.getLevel() - 1).toInt();
+    return getMultiplierByLevel(super.getLevel());
+  }
+
+  int getMultiplierByLevel(int level) {
+    return pow(2, level - 1).toInt();
+  }
+
+  @override
+  String getSpecificDescrption(int level) {
+    return "X${getMultiplierByLevel(level)}";
+  }
+
+  @override
+  String getDescription() {
+    return "Level Reward Multiplier";
   }
 }

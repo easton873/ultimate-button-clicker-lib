@@ -1,8 +1,7 @@
-import 'package:button_clicker/ui/confirm.dart';
 import 'package:flutter/material.dart';
 
-class RefundButton extends StatelessWidget {
-  const RefundButton({super.key, required this.buttonFn});
+class InfoButton extends StatelessWidget {
+  const InfoButton({super.key, required this.buttonFn});
   final VoidCallback? buttonFn;
 
   @override
@@ -15,8 +14,9 @@ class RefundButton extends StatelessWidget {
       child: IconButton(
         onPressed: buttonFn, 
         icon: const Icon(
-          Icons.recycling,
-          color: Colors.green
+          Icons.info,
+          color: Colors.black,
+          size: 30.0
         )
       ),
     );

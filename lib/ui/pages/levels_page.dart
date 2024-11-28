@@ -4,13 +4,13 @@ import 'package:button_clicker/game/game_data.dart';
 import 'package:button_clicker/game/loadout_manager.dart';
 import 'package:button_clicker/game/mco.dart';
 import 'package:button_clicker/save/save_data.dart';
-import 'package:button_clicker/ui/app_bar.dart';
-import 'package:button_clicker/ui/confirm.dart';
+import 'package:button_clicker/ui/color.dart';
+import 'package:button_clicker/ui/elements/confirm.dart';
 import 'package:button_clicker/ui/image_text.dart';
 import 'package:button_clicker/ui/pages/game_page.dart';
 import 'package:button_clicker/ui/pages/game_side_page.dart';
 import 'package:button_clicker/ui/game_text.dart';
-import 'package:button_clicker/ui/refund_button.dart';
+import 'package:button_clicker/ui/elements/refund_button.dart';
 import 'package:flutter/material.dart';
 
 class LevelsPage extends GameSidePage {
@@ -128,7 +128,7 @@ class _LevelsPageState extends GameSidePageState<LevelsPage> {
       refundButton = const SizedBox.shrink();
     }
     else if (!isUnlocked(key)) {
-      buttonText = ImageText.gameTextWithImage("${ImageText.image}1", fontSize, textStyle);
+      buttonText = Text('${MCO().numUnlocableLevels()} Left', style: textStyle);
       // buttonText = RichText(text: TextSpan(
       //   children: [
       //     UnlockPoint.getImageSpan(fontSize),
@@ -151,31 +151,16 @@ class _LevelsPageState extends GameSidePageState<LevelsPage> {
       children: [
         refundButton,
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+          ),
           onPressed: buttonFn, 
           child: buttonText
         ),
       ],
     );
   }
-
-  // Widget getLoadoutButton(String key, GameData currGameData, BuildContext context) {
-  //   String buttonText = "Switch";
-  //   void Function()? buttonFn = () { switchLoadout(key, currGameData, context); };
-  //   if (MCO().currGame.data.saveKey == key) {
-  //     buttonText = "Current";
-  //     buttonFn = null;
-  //   }
-  //   else if (!isUnlocked(key)) {
-  //     buttonText = "Unlock";
-  //     buttonFn = () {
-  //       doUnlockConfirmation(context, key);
-  //     };
-  //   } 
-  //   return ElevatedButton(
-  //     onPressed: buttonFn, 
-  //     child: Text(buttonText,style: textStyle)
-  //   );
-  // }
 
   void switchLoadout(String key, GameData currGameData, BuildContext context) {
     MCO().currGame = Game(SaveData().loadData(Game.fromGameData(currGameData), key));
@@ -196,11 +181,6 @@ class _LevelsPageState extends GameSidePageState<LevelsPage> {
   BoxDecoration getDecoration() {
     return const BoxDecoration();
   }
-
-  @override
-  CustomAppBar getAppBar() {
-    return const LevelsAppBar();
-  }
   
   @override
   Widget buildWidget(BuildContext context) {
@@ -209,38 +189,3 @@ class _LevelsPageState extends GameSidePageState<LevelsPage> {
     );
   }
 }
-
-// class _LevelsPageWithPurchase extends _LevelsPageState {
-//   _LevelsPageWithPurchase();
-
-//   bool isPurchased() {
-//     return MCO().settings.purchased;
-//   }
-
-//   @override
-//   bool isUnlocked(String key) {
-//     if (isPurchased()) {
-//       return true;
-//     }
-//     else {
-//       return super.isUnlocked(key);
-//     }
-//   }
-
-//   @override
-//   String getUnlockPointsStr() {
-//     if (isPurchased()) {
-//       return '∞';
-//     }
-//     return super.getUnlockPointsStr();
-//   }
-
-//   @override
-//   Widget getRefundButton(String key) {
-//     if (isPurchased()) {
-//       return const SizedBox.shrink();
-//     }
-//     return super.getRefundButton(key);
-//   }
-// }
-

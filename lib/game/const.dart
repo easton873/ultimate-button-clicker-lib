@@ -71,6 +71,10 @@ class Constants {
     return formatWithCommas(dropDecimal);
   }
 
+  static String displayPercentage(double decimal) {
+    return "${displayDoubleNoDecimal(decimal * 100)}%";
+  }
+
   static String dropDecimalFromDouble(double num) {
     String value = num.toString();
     if (value.contains("e")) {

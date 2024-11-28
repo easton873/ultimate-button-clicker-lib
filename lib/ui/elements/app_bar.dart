@@ -1,6 +1,6 @@
-import 'package:button_clicker/ui/back_button.dart';
-import 'package:button_clicker/ui/buy_button.dart';
-import 'package:button_clicker/ui/buying_amount.dart';
+import 'package:button_clicker/ui/elements/back_button.dart';
+import 'package:button_clicker/ui/elements/buy_button.dart';
+import 'package:button_clicker/ui/elements/buying_amount.dart';
 import 'package:button_clicker/ui/game_text.dart';
 import 'package:flutter/material.dart';
 
@@ -45,14 +45,5 @@ class ShopAppBar extends CustomAppBar {
         BuyingAmountToggler(),
       ],
     );
-  }
-}
-
-class LevelsAppBar extends CustomAppBar {
-  const LevelsAppBar({super.key});
-
-  @override
-  Widget getTopRightButton() {
-    return const BuyButton();
   }
 }

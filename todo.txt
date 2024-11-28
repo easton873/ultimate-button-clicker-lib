@@ -8,10 +8,6 @@ You can appear to have enough clicks but actually be short due to rounding...
 
 Bug where if you click the button too fast after locking your phone on the app and then reopening, you lose your clicks from time passing
 
-Tell you what the next milestone for gaining a bonus is
-
-Tutorial should explain that every multiple of x gives you more bonus, not earning
-
 Level Ideas:
     Play/theatre
     Movie Production
@@ -32,4 +28,5 @@ Upgrades:
     reward multiplier
 
 Is clicker gonna be backwards compatabile with original clicker?
-    
+
+The win popup needs to be stuck there for a second at least and not be clearable by clicking somewhere else

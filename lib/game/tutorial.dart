@@ -2,7 +2,7 @@ import 'package:button_clicker/game/clicker.dart';
 import 'package:button_clicker/game/const.dart';
 import 'package:button_clicker/game/game.dart';
 import 'package:button_clicker/ui/displays/displays.dart';
-import 'package:button_clicker/ui/tab_info.dart';
+import 'package:button_clicker/ui/elements/tab_info.dart';
 
 class Tutorial {
   TutorialState _state = NeedsClickState();

@@ -105,8 +105,12 @@ class MCO extends ObservableGame {
     _saveSettings();
   }
 
+  int numUnlocableLevels() {
+    return Upgrades().numLevels.getTotalLevelsUnlocked() - settings.diffUnlockedLevelsAndCompletedLevels();
+  }
+
   bool canUnlockLevel() {
-    return Upgrades().numLevels.getTotalLevelsUnlocked() - settings.diffUnlockedLevelsAndCompletedLevels() > 0;
+    return numUnlocableLevels() > 0;
   }
 
   void attemptUnlock(String key) {

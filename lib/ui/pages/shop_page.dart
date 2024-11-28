@@ -1,11 +1,11 @@
 import 'package:button_clicker/game/clicker.dart';
 import 'package:button_clicker/game/mco.dart';
-import 'package:button_clicker/ui/app_bar.dart';
+import 'package:button_clicker/ui/elements/app_bar.dart';
 import 'package:button_clicker/ui/displays/update_widget.dart';
 import 'package:button_clicker/ui/pages/game_page.dart';
 import 'package:button_clicker/ui/pages/game_side_page.dart';
 import 'package:button_clicker/ui/game_text.dart';
-import 'package:button_clicker/ui/shop_ui.dart';
+import 'package:button_clicker/ui/elements/shop_ui.dart';
 import 'package:flutter/material.dart';
 
 class ShopPage extends GameSidePage {

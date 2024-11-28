@@ -1,12 +1,14 @@
 import 'package:button_clicker/game/const.dart';
 import 'package:button_clicker/game/mco.dart';
 import 'package:button_clicker/game/upgrades/upgrades.dart';
-import 'package:button_clicker/ui/app_bar.dart';
-import 'package:button_clicker/ui/confirm.dart';
+import 'package:button_clicker/ui/elements/app_bar.dart';
+import 'package:button_clicker/ui/elements/confirm.dart';
+import 'package:button_clicker/ui/elements/info_button.dart';
+import 'package:button_clicker/ui/elements/upgrade_view.dart';
 import 'package:button_clicker/ui/game_text.dart';
 import 'package:button_clicker/ui/image_text.dart';
 import 'package:button_clicker/ui/pages/game_side_page.dart';
-import 'package:button_clicker/ui/refund_button.dart';
+import 'package:button_clicker/ui/elements/refund_button.dart';
 import 'package:flutter/material.dart';
 
 ButtonStyle _myButtonStyle = ElevatedButton.styleFrom(
@@ -64,10 +66,16 @@ class _UpgradesPageState extends GameSidePageState<UpgradesPage> {
                               Row(
                                 children: [
                                   GameText("Level ${upgrades[i].getLevel()}"),
-                                  ImageText.gameTextWithImage("${ImageText.image}${upgrades[i].getCost()}", fontSize, textStyle)
+                                  ImageText.gameTextWithImage("${ImageText.image}${upgrades[i].getCurrCost()}", fontSize, textStyle)
                                 ],
                               )
                             ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InfoButton(buttonFn: (){
+                              _showUpgradeInfoPopup(context, upgrades[i]);
+                            }),
                           ),
                           getBuyButton(upgrades[i]),
                         ]
@@ -134,9 +142,9 @@ void _showPurchasePopup(BuildContext context) {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buyXP(context, '\$0.99', 10),
-              _buyXP(context, '\$4.99', 100),
-              _buyXP(context, '\$19.99', 1000),
+              _buyXP(context, '\$0.99', 100),
+              _buyXP(context, '\$4.99', 1000),
+              _buyXP(context, '\$19.99', 10000),
             ],
           ),
           actions: [
@@ -168,5 +176,23 @@ void _showPurchasePopup(BuildContext context) {
           ),
         ],
       ),
+    );
+  }
+
+  void _showUpgradeInfoPopup(BuildContext context, Upgrade upgrade) {
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(upgrade.getName()),
+          content: UpgradeView(upgrade: upgrade),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      }
     );
   }

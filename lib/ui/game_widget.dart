@@ -1,7 +1,7 @@
 import 'package:button_clicker/game/const.dart';
 import 'package:button_clicker/game/mco.dart';
 import 'package:button_clicker/ui/color.dart';
-import 'package:button_clicker/ui/confirm.dart';
+import 'package:button_clicker/ui/elements/confirm.dart';
 import 'package:button_clicker/ui/displays/displays.dart';
 import 'package:button_clicker/ui/displays/update_widget.dart';
 import 'package:button_clicker/ui/game_text.dart';

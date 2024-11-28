@@ -1,4 +1,4 @@
-import 'package:button_clicker/ui/confirm.dart';
+import 'package:button_clicker/ui/elements/confirm.dart';
 import 'package:button_clicker/ui/game_ui.dart';
 import 'package:flutter/material.dart';
 

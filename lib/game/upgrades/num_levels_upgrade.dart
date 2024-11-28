@@ -1,7 +1,7 @@
 import 'package:button_clicker/game/upgrades/upgrades.dart';
 
 class NumLevelsUpgrade extends Upgrade {
-  NumLevelsUpgrade() : super(BaseUpgrade(name: "Number of Unlocked Levels"));
+  NumLevelsUpgrade() : super(BaseUpgrade(name: "Number of Unlocked Levels", maxLevel: 15));
 
   NumLevelsUpgrade.fromJson(Map json) : super(BaseUpgrade.fromJson(json));
 
@@ -16,11 +16,25 @@ class NumLevelsUpgrade extends Upgrade {
   }
 
   @override
-  int getCost() {
-    return super.getLevel() * 2;
+  int getCost(int level) {
+    return level * 2;
   }
 
   int getTotalLevelsUnlocked() {
-    return super.getLevel() + 1;
+    return getTotalLevelsUnlockedByLevel(super.getLevel());
+  }
+
+  int getTotalLevelsUnlockedByLevel(int level) {
+    return level * 2;
+  }
+
+  @override
+  String getSpecificDescrption(int level) {
+    return "${getTotalLevelsUnlockedByLevel(level)}";
+  }
+
+  @override
+  String getDescription() {
+    return "Number of Playable Levels";
   }
 }

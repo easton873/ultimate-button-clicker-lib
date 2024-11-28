@@ -1,7 +1,7 @@
 import 'package:button_clicker/game/clicker.dart';
 import 'package:button_clicker/game/game_observer.dart';
 import 'package:button_clicker/game/mco.dart';
-import 'package:button_clicker/ui/app_bar.dart';
+import 'package:button_clicker/ui/elements/app_bar.dart';
 import 'package:button_clicker/ui/pages/game_page.dart';
 import 'package:button_clicker/ui/game_text.dart';
 import 'package:button_clicker/ui/pages/shop_page.dart';

@@ -17,7 +17,7 @@ class BaseUpgrade implements JsonMarshaller, JsonUnmarshaller {
   int level = startingLevel;
   int maxLevel;
 
-  BaseUpgrade({required this.name, this.maxLevel = 10});
+  BaseUpgrade({required this.name, this.maxLevel = 50});
 
   static const String jsonName = "name";
   static const String jsonLevel = "level";
@@ -58,7 +58,7 @@ abstract class Upgrade implements JsonMarshaller, JsonUnmarshaller {
     if (isMax()) {
       return 0;
     }
-    num cost = getCost();
+    num cost = getCurrCost();
     if (points >= cost) {
       int paidCost = cost.toInt();
       _base.level++;
@@ -71,7 +71,11 @@ abstract class Upgrade implements JsonMarshaller, JsonUnmarshaller {
     return _base.name;
   }
 
-  int getCost();
+  int getCost(int level);
+
+  int getCurrCost() {
+    return getCost(_base.level);
+  }
 
   int getLevel() {
     return _base.level;
@@ -84,6 +88,14 @@ abstract class Upgrade implements JsonMarshaller, JsonUnmarshaller {
   BaseUpgrade getBase() {
     return _base;
   }
+
+  int getMaxLevel() {
+    return _base.maxLevel;
+  }
+
+  String getSpecificDescrption(int level);
+
+  String getDescription();
 
   reset() {
     _base.level = BaseUpgrade.startingLevel;

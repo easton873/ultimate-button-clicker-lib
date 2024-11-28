@@ -1,4 +1,4 @@
-import 'package:button_clicker/ui/app_bar.dart';
+import 'package:button_clicker/ui/elements/app_bar.dart';
 import 'package:button_clicker/ui/pages/game_page.dart';
 import 'package:flutter/material.dart';
 
